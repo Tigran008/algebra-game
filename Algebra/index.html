@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="gameSettings" class="modalPage" style="padding: 1px 15px 1px 15px; display: none;">
+
+        <p style="font-size: 30px; text-align: end; margin: 10px; font-family: sans-serif; color: red; cursor: pointer;" onclick="cancelGame()"> <strong>x</strong></p>
+
+        <div style="display: flex; flex-direction: column; align-items: center;">
+
+            <h2><label for="nameInp">Name</label></h2>
+            <input type="text" id="nameInp" name="nameInp" placeholder="Enter your name">
+            <span style="display: none; color: red; font-size: 15px;" id="emptyName">Please enter your name</span>
+
+            <div id="choose" style="margin: 30px 0px 30px 0px;">
+                    <h2 style="text-align: center;">Choose</h2>
+                    <label for="minus" style="font-size: 35px;">-</label>
+                    <input type="checkbox" name="minus" style="width: 20px; height: 20px; margin-right: 20px;" id="minusBox"> 
+                    <label for="plus"  style="font-size: 35px;">+</label>
+                    <input type="checkbox" name="plus" style="width: 20px; height: 20px; margin-right: 20px;" id="plusBox">
+                    <label for="mul" style="font-size: 40px;">×</label>
+                    <input type="checkbox" name="mul" style="width: 20px; height: 20px; margin-right: 20px;" id="mulBox"> 
+                    <label for="divide"  style="font-size: 35px;">÷</label>
+                    <input type="checkbox" name="divide" style="width: 20px; height: 20px;" id="divBox">
+                    <span style="display: none; color: red; text-align: center; font-size: 15px;" id="emptyChoose">please choose one of the options </span>
+            </div>
+
+
+            
+            <div id="timer_setting" style="text-align: center;">
+                <h2>Timer</h2>
+                <label for="minute">min.</label>
+                <input type="number"  id="minutes" class="timerInp" name="minute" min="0" max="30" style="margin-right: 20px;" placeholder="0">
+                <label for="second">sec.</label>
+                <input type="number" id="seconds" class="timerInp" name="second" min="0" max="59" placeholder="0">
+                <span style="display: none; color: red; text-align: center; font-size: 15px;" id="invalidTimer">invalid timer</span>
+            </div>  
+            
+
+            <div id="settingButtons">
+                <button class="settingsButtons" style="margin-right: 40px;" onclick="cancelGame()">Cancel</button>
+                <button class="settingsButtons" id="start" onclick="start()">Start</button>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <div id="resultModal" class="modalPage" style="padding: 1px 15px 1px 15px; display: none; align-items: center; flex-direction: column;">
+
+        <div style="font-size: 50px; margin: 35px; color: #000;" class="resultInfos">
+            <img src="images/person.png" alt="" class="resultImages" style="width: 50px; height: 50px;">
+            <span id="nameResult">Svetik</span>
+        </div>
+
+        <div class="resultInfos" style="color: green;">
+            <img src="images/right.png" alt="" class="resultImages" style="width: 50px; height: 50px;">
+            <span id="rightResult">Right Answers: 5</span>
+        </div>
+
+        <div class="resultInfos" style="color: red;">
+            <img src="images/false.png" alt="" class="resultImages" style="width: 25px; height: 25px;">
+            <span id="wrongResult">Wrong Answers: 0</span>
+        </div>
+
+        <div class="resultInfos">
+            <img src="images/timer.png" alt="" class="resultImages" style="width: 40px; height: 40px;">
+            <span id="timerResult">Timer: 05:00</span>
+        </div>
+
+        <div class="resultInfos" style="color: #F1F7B5; margin-bottom: 150px;">
+            <img src="images/score.png" alt="" class="resultImages" style="width: 40px; height: 40px;">
+            <span id="scoreResult">Score: 4500</span>
+        </div>
+
+        <div style="display: flex; justify-content: center;">
+            <button id="homeButton" class="settingsButtons" style="height: 50px; background-color: #FF0060" onclick="cancelGame()">Home</button>
+            <button class="settingsButtons" id="newGame" style="height: 50px; background-color: #00DFA2;" onclick="start()">New Game</button>
+        </div>
+
+    </div>
+
+
+
+
+    <div id="expressionField">
+        <div id="gameplay">
+            <div id="expression"  style="display: none;">
+                <p id="expressText"></p>
+                <input type="text" id="expressInput" onkeydown="handleKeyPress(event)">
+            </div>
+    
+            <div id="checkDiv" style="display: none;">
+                <button id="checkInp" onclick="checkInp()">Check</button>
+                
+            </div>
+
+            <div id="timer" style="display: none; margin-top: 15px;">
+                <div id="timerBox">
+                    
+                </div>
+            </div>    
+    
+            <div id="answersCount">
+                <p id="rightAnswers">Right Answers: <span id="rightAnswersCount">0</span></p>
+                <p id="wrongAnswers">Wrong Answers: <span id="wrongAnswersCount">0</span></p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div id="buttons" style="display: block;">
+        <div>
+            <button class="starterButtons" onclick="playGame()">Play</button>
+            <button class="starterButtons">Results</button>
+            <button class="starterButtons" style="background-color:#F7EEDD;">Rules</button>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>   
+</body>
+</html>
